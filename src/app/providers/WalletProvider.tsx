@@ -17,8 +17,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState<string | null>(() => {
     return localStorage.getItem('walletAddress');
   });
-  const [isConnected, setIsConnected] = useState<boolean>(!!walletAddress); // Если адрес есть, то считаем подключенным
-
+  const [isConnected, setIsConnected] = useState<boolean>(!!walletAddress);
   const AMOY_POLYGON_RPC_URL = 'https://rpc-amoy.polygon.technology';
 
   const connectWallet = async () => {
@@ -31,13 +30,13 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
           const address = accounts[0];
           setWalletAddress(address);
           setIsConnected(true);
-          localStorage.setItem('walletAddress', address); // Сохраняем в localStorage
+          localStorage.setItem('walletAddress', address);
         } else {
           await (window.ethereum as any).request({
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: '0x13882', // Chain ID в шестнадцатеричной форме
+                chainId: '0x13882',
                 chainName: 'Polygon Amoy Testnet',
                 rpcUrls: [AMOY_POLYGON_RPC_URL],
                 nativeCurrency: { name: 'POL', symbol: 'POL', decimals: 18 },
